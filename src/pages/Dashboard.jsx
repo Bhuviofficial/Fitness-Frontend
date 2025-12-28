@@ -1,48 +1,21 @@
-import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-
-const API = import.meta.env.VITE_BACKEND_URL;
+import StatCard from "../components/StatCard";
+import "../styles/dashboard.css";
 
 function Dashboard() {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    fetch(`${API}/api/dashboard`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-    })
-      .then(res => res.json())
-      .then(data => setData(data));
-  }, []);
-
   return (
     <>
       <Navbar />
 
       <div className="dashboard">
-        <h1>Welcome to Your Fitness Dashboard</h1>
+        <h1>Welcome back 👋</h1>
 
-        {data ? (
-          <div className="cards">
-            <div className="card">
-              <h3>Calories</h3>
-              <p>{data.calories}</p>
-            </div>
-
-            <div className="card">
-              <h3>Steps</h3>
-              <p>{data.steps}</p>
-            </div>
-
-            <div className="card">
-              <h3>Goals</h3>
-              <p>{data.goals}</p>
-            </div>
-          </div>
-        ) : (
-          <p>Loading...</p>
-        )}
+        <div className="stats-grid">
+          <StatCard title="Steps" value="7,500" unit="steps" />
+          <StatCard title="Calories" value="520" unit="kcal" />
+          <StatCard title="Water" value="2.5" unit="L" />
+          <StatCard title="Workout" value="45" unit="mins" />
+        </div>
       </div>
     </>
   );
