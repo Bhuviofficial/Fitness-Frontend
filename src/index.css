@@ -403,3 +403,65 @@ body {
   font-weight: 600;
   color: #16a34a;
 }
+/* =========================
+   GOALS PAGE
+========================= */
+
+.goals-page {
+  padding: 30px;
+}
+
+.goals-header h2 {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.goals-header p {
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.goal-card {
+  background: white;
+  padding: 22px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.goal-card h4 {
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.goal-value {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* Progress bar */
+.progress-bar {
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  border-radius: 20px;
+}
+
+.goal-progress {
+  font-size: 13px;
+  color: #777;
+}
