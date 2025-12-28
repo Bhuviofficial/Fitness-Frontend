@@ -1,22 +1,59 @@
-import Navbar from "../components/Navbar.jsx";
-import StatCard from "../components/StatCard";
-function Dashboard() {
+import { useNavigate } from "react-router-dom";
+
+const Dashboard = () => {
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
-    <>
-      <Navbar />
+    <div className="dashboard-page">
+      {/* Navbar */}
+      <header className="dashboard-navbar">
+        <h1 className="logo">FitLife</h1>
+        <button className="logout-btn" onClick={logout}>
+          Logout
+        </button>
+      </header>
 
-      <div className="dashboard">
-        <h1>Welcome back 👋</h1>
+      {/* Welcome Section */}
+      <section className="welcome-card">
+        <h2>
+          Welcome back <span>👋</span>
+        </h2>
+        <p>Here’s your fitness summary for today</p>
+      </section>
 
-        <div className="stats-grid">
-          <StatCard title="Steps" value="7,500" unit="steps" />
-          <StatCard title="Calories" value="520" unit="kcal" />
-          <StatCard title="Water" value="2.5" unit="L" />
-          <StatCard title="Workout" value="45" unit="mins" />
+      {/* Stats Grid */}
+      <section className="stats-grid">
+        <div className="stat-card">
+          <h3>Steps</h3>
+          <p className="stat-value">7,500</p>
+          <span className="stat-unit">steps</span>
         </div>
-      </div>
-    </>
+
+        <div className="stat-card">
+          <h3>Calories</h3>
+          <p className="stat-value">520</p>
+          <span className="stat-unit">kcal</span>
+        </div>
+
+        <div className="stat-card">
+          <h3>Water</h3>
+          <p className="stat-value">2.5</p>
+          <span className="stat-unit">litres</span>
+        </div>
+
+        <div className="stat-card">
+          <h3>Workout</h3>
+          <p className="stat-value">45</p>
+          <span className="stat-unit">minutes</span>
+        </div>
+      </section>
+    </div>
   );
-}
+};
 
 export default Dashboard;

@@ -116,3 +116,96 @@ body {
 .switch-text a:hover {
   text-decoration: underline;
 }
+/* ---------- DASHBOARD ---------- */
+
+.dashboard-page {
+  min-height: 100vh;
+  background: #f4f6f8;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Navbar */
+.dashboard-navbar {
+  background: #ffffff;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #00c6a9;
+}
+
+.logout-btn {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: #e63939;
+}
+
+/* Welcome Card */
+.welcome-card {
+  margin: 32px;
+  background: linear-gradient(135deg, #00c6a9, #00e0c7);
+  color: white;
+  padding: 30px;
+  border-radius: 16px;
+}
+
+.welcome-card h2 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.welcome-card p {
+  opacity: 0.9;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  padding: 0 32px 32px;
+}
+
+/* Stat Cards */
+.stat-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-card h3 {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.stat-value {
+  font-size: 36px;
+  font-weight: 700;
+  color: #00c6a9;
+}
+
+.stat-unit {
+  color: #888;
+  font-size: 14px;
+}

@@ -23,16 +23,15 @@ const Login = () => {
       });
 
       const data = await res.json();
-
+      console.log("LOGIN RESPONSE:", data);
+console.log("API URL:", API);
       if (!res.ok) {
         setError(data.message || "Login failed");
         return;
       }
-
-      // ✅ SAVE TOKEN
+    
       localStorage.setItem("token", data.token);
 
-      // ✅ GO TO DASHBOARD
       navigate("/dashboard");
     } catch (err) {
       setError("Server error. Please try again.");
