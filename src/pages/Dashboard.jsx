@@ -1,7 +1,5 @@
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbar.jsx";
 import StatCard from "../components/StatCard";
-import "../styles/dashboard.css";
-
 function Dashboard() {
   return (
     <>
