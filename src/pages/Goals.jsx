@@ -1,16 +1,10 @@
-import Sidebar from "../components/Sidebar"
-import Navbar from "../components/Navbar"
-
-export default function Goals() {
+const Goals = () => {
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="flex-1">
-        <Navbar />
-        <div className="p-6">
-          <h2 className="text-xl font-bold">Goals</h2>
-        </div>
-      </div>
+    <div className="main-content">
+      <h2>Goals</h2>
+      <p>Set and monitor your fitness goals.</p>
     </div>
-  )
-}
+  );
+};
+
+export default Goals;

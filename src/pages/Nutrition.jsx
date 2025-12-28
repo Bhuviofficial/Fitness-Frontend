@@ -1,16 +1,10 @@
-import Sidebar from "../components/Sidebar"
-import Navbar from "../components/Navbar"
-
-export default function Nutrition() {
+const Nutrition = () => {
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="flex-1">
-        <Navbar />
-        <div className="p-6">
-          <h2 className="text-xl font-bold">Nutrition Planning</h2>
-        </div>
-      </div>
+    <div className="main-content">
+      <h2>Nutrition</h2>
+      <p>Track your daily meals and calories.</p>
     </div>
-  )
-}
+  );
+};
+
+export default Nutrition;

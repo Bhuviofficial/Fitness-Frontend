@@ -1,12 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <div className="app-layout">
@@ -15,9 +18,26 @@ const Dashboard = () => {
         <h2 className="sidebar-logo">FitLife</h2>
 
         <nav className="sidebar-menu">
-          <button className="menu-item active">Dashboard</button>
-          <button className="menu-item">Nutrition</button>
-          <button className="menu-item">Goals</button>
+          <button
+            className={`menu-item ${isActive("/dashboard") ? "active" : ""}`}
+            onClick={() => navigate("/dashboard")}
+          >
+            Dashboard
+          </button>
+
+          <button
+            className={`menu-item ${isActive("/nutrition") ? "active" : ""}`}
+            onClick={() => navigate("/nutrition")}
+          >
+            Nutrition
+          </button>
+
+          <button
+            className={`menu-item ${isActive("/goals") ? "active" : ""}`}
+            onClick={() => navigate("/goals")}
+          >
+            Goals
+          </button>
         </nav>
 
         <button className="sidebar-logout" onClick={logout}>
@@ -25,17 +45,13 @@ const Dashboard = () => {
         </button>
       </aside>
 
-      {/* Main Content */}
+      {/* Main */}
       <main className="main-content">
-        {/* Welcome */}
         <section className="welcome-card">
-          <h2>
-            Welcome back <span>👋</span>
-          </h2>
+          <h2>Welcome back 👋</h2>
           <p>Your fitness summary for today</p>
         </section>
 
-        {/* Stats */}
         <section className="stats-grid">
           <div className="stat-card">
             <h3>Steps</h3>
