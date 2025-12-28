@@ -5,33 +5,20 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/");
+    navigate("/login");
   };
 
   return (
-    <div
-      style={{
-        height: "60px",
-        background: "#111827",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "0 30px",
-        color: "#fff",
-      }}
-    >
-      <h2>FitLife</h2>
+    <div className="w-full h-16 bg-white shadow flex items-center justify-between px-6">
+      {/* App Title */}
+      <h1 className="text-xl font-semibold text-green-600">
+        Health & Wellness
+      </h1>
 
+      {/* Logout Button */}
       <button
         onClick={handleLogout}
-        style={{
-          background: "#ef4444",
-          color: "#fff",
-          border: "none",
-          padding: "8px 14px",
-          borderRadius: "6px",
-          cursor: "pointer",
-        }}
+        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition"
       >
         Logout
       </button>
