@@ -1,94 +1,92 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
-  const navigate = useNavigate();
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const API = import.meta.env.VITE_BACKEND_URL;
 
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
 
-    if (!name || !email || !password) {
-      setError("All fields are required");
-      return;
-    }
-
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters");
-      return;
-    }
-
     try {
-      setLoading(true);
+      const res = await fetch(`${API}/api/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password
+        })
+      });
 
-      const res = await axios.post(
-        "https://fitness-backend-1-lgej.onrender.com/api/auth/register",
-        { name, email, password }
-      );
-      localStorage.setItem("token", res.data.token);
+      const data = await res.json();
 
-      // Redirect
+      if (!res.ok) {
+        setError(data.message || "Registration failed");
+        return;
+      }
+
+      // ✅ SAVE TOKEN
+      localStorage.setItem("token", data.token);
+
+      // ✅ GO TO DASHBOARD
       navigate("/dashboard");
     } catch (err) {
-      setError(
-        err.response?.data?.message || "Registration failed"
-      );
-    } finally {
-      setLoading(false);
+      setError("Server error. Please try again.");
     }
   };
 
   return (
-    <div className="auth-wrapper">
-      <div className="auth-container">
-        <div className="auth-brand">
-          <h1>FitLife</h1>
-          <p>Start your fitness journey</p>
-        </div>
+    <div className="auth-page">
+      <form className="auth-card" onSubmit={handleRegister}>
+        <h1 className="brand">FitLife</h1>
+        <p className="subtitle">Start your fitness journey</p>
 
-        {error && <div className="error-msg">{error}</div>}
+        {error && <div className="error-box">{error}</div>}
 
-        <form className="auth-form" onSubmit={handleRegister}>
-          <label>Full Name</label>
-          <input
-            type="text"
-            placeholder="Enter your full name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+        <label>Full Name</label>
+        <input
+          type="text"
+          placeholder="Enter your name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
 
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+        <label>Email</label>
+        <input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
 
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="Create a password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        <label>Password</label>
+        <input
+          type="password"
+          placeholder="Create a password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Creating account..." : "Register"}
-          </button>
-        </form>
+        <button type="submit" className="primary-btn">
+          Register
+        </button>
 
-        <div className="auth-link">
-          Already have an account? <Link to="/">Login</Link>
-        </div>
-      </div>
+        <p className="switch-text">
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
+      </form>
     </div>
   );
 };

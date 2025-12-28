@@ -1,81 +1,78 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const API = import.meta.env.VITE_BACKEND_URL;
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
 
-    if (!email || !password) {
-      setError("Please fill in all fields");
-      return;
-    }
-
     try {
-      setLoading(true);
+      const res = await fetch(`${API}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      });
 
-      const res = await axios.post(
-        "https://fitness-backend-1-lgej.onrender.com/api/auth/login",
-        { email, password }
-      );
+      const data = await res.json();
 
-      localStorage.setItem("token", res.data.token);
+      if (!res.ok) {
+        setError(data.message || "Login failed");
+        return;
+      }
 
-      // Redirect
+      // ✅ SAVE TOKEN
+      localStorage.setItem("token", data.token);
+
+      // ✅ GO TO DASHBOARD
       navigate("/dashboard");
     } catch (err) {
-      setError(
-        err.response?.data?.message || "Invalid email or password"
-      );
-    } finally {
-      setLoading(false);
+      setError("Server error. Please try again.");
     }
   };
 
   return (
-    <div className="auth-wrapper">
-      <div className="auth-container">
-        <div className="auth-brand">
-          <h1>FitLife</h1>
-          <p>Track • Train • Transform</p>
-        </div>
+    <div className="auth-page">
+      <form className="auth-card" onSubmit={handleLogin}>
+        <h1 className="brand">FitLife</h1>
+        <p className="subtitle">Welcome back</p>
 
-        {error && <div className="error-msg">{error}</div>}
+        {error && <div className="error-box">{error}</div>}
 
-        <form className="auth-form" onSubmit={handleLogin}>
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+        <label>Email</label>
+        <input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
 
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        <label>Password</label>
+        <input
+          type="password"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
-          </button>
-        </form>
+        <button type="submit" className="primary-btn">
+          Login
+        </button>
 
-        <div className="auth-link">
-          Don’t have an account? <Link to="/register">Create one</Link>
-        </div>
-      </div>
+        <p className="switch-text">
+          Don’t have an account? <Link to="/register">Register</Link>
+        </p>
+      </form>
     </div>
   );
 };

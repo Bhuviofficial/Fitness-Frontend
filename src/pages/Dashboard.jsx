@@ -1,52 +1,51 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Navbar from "../components/Navbar";
 
-const Dashboard = () => {
+const API = import.meta.env.VITE_BACKEND_URL;
+
+function Dashboard() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const fetchDashboard = async () => {
-      try {
-        const token = localStorage.getItem("token");
-
-        const res = await axios.get(
-          "https://your-backend.onrender.com/api/dashboard",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        setData(res.data);
-      } catch (error) {
-        console.error(error);
+    fetch(`${API}/api/dashboard`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
       }
-    };
-
-    fetchDashboard();
+    })
+      .then(res => res.json())
+      .then(data => setData(data));
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <>
       <Navbar />
 
-      <div className="p-6">
-        <h2 className="text-2xl font-bold mb-4">
-          Welcome to your Dashboard
-        </h2>
+      <div className="dashboard">
+        <h1>Welcome to Your Fitness Dashboard</h1>
 
         {data ? (
-          <pre className="bg-white p-4 rounded shadow">
-            {JSON.stringify(data, null, 2)}
-          </pre>
+          <div className="cards">
+            <div className="card">
+              <h3>Calories</h3>
+              <p>{data.calories}</p>
+            </div>
+
+            <div className="card">
+              <h3>Steps</h3>
+              <p>{data.steps}</p>
+            </div>
+
+            <div className="card">
+              <h3>Goals</h3>
+              <p>{data.goals}</p>
+            </div>
+          </div>
         ) : (
-          <p>Loading dashboard...</p>
+          <p>Loading...</p>
         )}
       </div>
-    </div>
+    </>
   );
-};
+}
 
 export default Dashboard;
