@@ -1,23 +1,42 @@
 import { useNavigate } from "react-router-dom";
 
-export default function Navbar() {
+const Navbar = () => {
   const navigate = useNavigate();
 
-  const logout = () => {
+  const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
-    <header className="h-16 bg-white shadow flex items-center justify-between px-8">
-      <h2 className="text-xl font-semibold">Dashboard</h2>
+    <div
+      style={{
+        height: "60px",
+        background: "#111827",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "0 30px",
+        color: "#fff",
+      }}
+    >
+      <h2>FitLife</h2>
 
       <button
-        onClick={logout}
-        className="text-sm bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700"
+        onClick={handleLogout}
+        style={{
+          background: "#ef4444",
+          color: "#fff",
+          border: "none",
+          padding: "8px 14px",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
       >
         Logout
       </button>
-    </header>
+    </div>
   );
-}
+};
+
+export default Navbar;
