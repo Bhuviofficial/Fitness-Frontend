@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import Nutrition from "./components/Nutrition";
-import Goals from "./components/Goals";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard.jsx";
+import Nutrition from "./components/Nutrition.jsx";
+import Goals from "./components/Goals.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
 
 const Protected = ({ children }) => {
   return localStorage.getItem("token")

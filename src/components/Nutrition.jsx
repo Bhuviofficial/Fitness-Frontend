@@ -1,4 +1,4 @@
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/Sidebar.jsx";
 import { useState } from "react";
 
 export default function Nutrition() {
