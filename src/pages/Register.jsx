@@ -34,10 +34,9 @@ const Register = () => {
         return;
       }
 
-      // ✅ SAVE TOKEN
       localStorage.setItem("token", data.token);
 
-      // ✅ GO TO DASHBOARD
+
       navigate("/dashboard");
     } catch (err) {
       setError("Server error. Please try again.");

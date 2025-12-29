@@ -6,7 +6,7 @@ const Nutrition = () => {
         <p>Track what you eat today</p>
       </header>
 
-      {/* Summary */}
+  
       <section className="nutrition-summary">
         <div className="summary-card">
           <h4>Total Calories</h4>
@@ -29,7 +29,7 @@ const Nutrition = () => {
         </div>
       </section>
 
-      {/* Meals */}
+    
       <section className="meals-section">
         <h3>Meals</h3>
 
