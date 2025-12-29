@@ -1,44 +1,24 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Dashboard from "./pages/Dashboard.jsx";
-import Nutrition from"./components/Nutrition.jsx";
-import Goals from "./components/Goals.jsx";
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-const Protected = ({ children }) => {
-  return localStorage.getItem("token")
-    ? children
-    : <Navigate to="/login" />;
-};
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
 
-export default function App() {
+import Nutrition from "./components/Nutrition";
+import Goals from "./components/Goals";
+
+function App() {
   return (
     <BrowserRouter>
       <Routes>
-
-        {/* ✅ FIX: ROOT ROUTE */}
-        <Route path="/" element={<Navigate to="/login" />} />
-
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
-        <Route
-          path="/dashboard"
-          element={<Protected><Dashboard /></Protected>}
-        />
-        <Route
-          path="/nutrition"
-          element={<Protected><Nutrition /></Protected>}
-        />
-        <Route
-          path="/goals"
-          element={<Protected><Goals /></Protected>}
-        />
-
-        {/* Optional fallback */}
-        <Route path="*" element={<Navigate to="/login" />} />
-
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/nutrition" element={<Nutrition />} />
+        <Route path="/goals" element={<Goals />} />
       </Routes>
     </BrowserRouter>
   );
 }
+
+export default App;
