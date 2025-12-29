@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import Nutrition from "./components/Nutrition";
-import Goals from "./components/Goals";
+import Nutrition from "./pages/Nutrition";
+import Goals from "./pages/Goals";
 import Login from "./pages/Login";
 
 const Protected = ({ children }) => {
