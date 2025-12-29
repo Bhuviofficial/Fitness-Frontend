@@ -11,3 +11,4 @@ import Goals from "./pages/Goals";
     <Route path="/goals" element={<Goals />} />
   </Route>
 </Routes>;
+export default App;
