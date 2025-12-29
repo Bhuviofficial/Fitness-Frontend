@@ -1,16 +1,22 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
-  return (
-    <aside className="sidebar">
-      <h2 className="logo">Fitness</h2>
+  const navigate = useNavigate();
 
-      <nav>
-        <Link to="/dashboard">Dashboard</Link>
-        <Link to="/nutrition">Nutrition</Link>
-        <Link to="/workouts">Workouts</Link>
-        <Link to="/profile">Profile</Link>
-      </nav>
-    </aside>
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
+  return (
+    <div className="sidebar">
+      <h2>Fitness App</h2>
+      <ul>
+        <li onClick={() => navigate("/dashboard")}>Dashboard</li>
+        <li onClick={() => navigate("/nutrition")}>Nutrition</li>
+        <li onClick={() => navigate("/goals")}>Goals</li>
+        <li className="logout" onClick={logout}>Logout</li>
+      </ul>
+    </div>
   );
 }

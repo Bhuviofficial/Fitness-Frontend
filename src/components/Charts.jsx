@@ -1,21 +1,41 @@
+import { Bar, Line } from "react-chartjs-2";
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  PointElement
+} from "chart.js";
 
-export default function Charts({ data, color }) {
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  PointElement
+);
+
+export default function Charts({ data }) {
+  const labels = data.map(d =>
+    new Date(d.date).toLocaleDateString()
+  );
+
   return (
-    <ResponsiveContainer width="100%" height={250}>
-      <BarChart data={data}>
-        <XAxis dataKey="day" />
-        <YAxis />
-        <Tooltip />
-        <Bar dataKey="value" fill={color} />
-      </BarChart>
-    </ResponsiveContainer>
+    <div className="charts">
+      <Bar
+        data={{
+          labels,
+          datasets: [{ label: "Steps", data: data.map(d => d.steps) }]
+        }}
+      />
+
+      <Line
+        data={{
+          labels,
+          datasets: [{ label: "Calories", data: data.map(d => d.calories) }]
+        }}
+      />
+    </div>
   );
 }
