@@ -69,8 +69,6 @@ body {
 .auth-card input:focus {
   border-color: #111827;
 }
-
-/* BUTTON */
 .primary-btn {
   width: 100%;
   padding: 12px;
@@ -97,7 +95,6 @@ body {
   text-align: center;
 }
 
-/* SWITCH TEXT */
 .switch-text {
   margin-top: 22px;
   text-align: center;
