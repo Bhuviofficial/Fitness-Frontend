@@ -1,22 +1,43 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import Nutrition from "./pages/Nutrition";
-import Goals from "./pages/Goals";
+import Nutrition from "./components/Nutrition";
+import Goals from "./components/Goals";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const Protected = ({ children }) => {
   return localStorage.getItem("token")
     ? children
     : <Navigate to="/login" />;
 };
+
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+
+        {/* ✅ FIX: ROOT ROUTE */}
+        <Route path="/" element={<Navigate to="/login" />} />
+
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Protected><Dashboard /></Protected>} />
-        <Route path="/nutrition" element={<Protected><Nutrition /></Protected>} />
-        <Route path="/goals" element={<Protected><Goals /></Protected>} />
+        <Route path="/register" element={<Register />} />
+
+        <Route
+          path="/dashboard"
+          element={<Protected><Dashboard /></Protected>}
+        />
+        <Route
+          path="/nutrition"
+          element={<Protected><Nutrition /></Protected>}
+        />
+        <Route
+          path="/goals"
+          element={<Protected><Goals /></Protected>}
+        />
+
+        {/* Optional fallback */}
+        <Route path="*" element={<Navigate to="/login" />} />
+
       </Routes>
     </BrowserRouter>
   );
