@@ -13,7 +13,6 @@ const DashboardLayout = () => {
 
   return (
     <div className="app-layout">
-      {/* Sidebar */}
       <aside className="sidebar">
         <h2 className="sidebar-logo">FitLife</h2>
 

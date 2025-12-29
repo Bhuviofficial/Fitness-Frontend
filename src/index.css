@@ -87,8 +87,6 @@ body {
 .primary-btn:hover {
   background-color: #000000;
 }
-
-/* ERROR */
 .error-box {
   background-color: #fee2e2;
   color: #991b1b;
