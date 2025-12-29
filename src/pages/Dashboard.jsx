@@ -30,6 +30,28 @@ const Dashboard = () => {
 
   const isActive = (path) => location.pathname === path;
 
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        grid: {
+          color: "#f1f5f9",
+        },
+      },
+      x: {
+        grid: {
+          display: false,
+        },
+      },
+    },
+  };
+
   const stepsData = {
     labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     datasets: [
@@ -39,6 +61,7 @@ const Dashboard = () => {
         borderColor: "#00c6a9",
         backgroundColor: "rgba(0,198,169,0.2)",
         tension: 0.4,
+        fill: true,
       },
     ],
   };
@@ -47,11 +70,12 @@ const Dashboard = () => {
     labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     datasets: [
       {
-        label: "Calories Burned",
+        label: "Calories",
         data: [400, 480, 520, 500, 600, 700, 650],
         borderColor: "#f97316",
         backgroundColor: "rgba(249,115,22,0.2)",
         tension: 0.4,
+        fill: true,
       },
     ],
   };
@@ -67,29 +91,32 @@ const Dashboard = () => {
             className={`menu-item ${isActive("/dashboard") ? "active" : ""}`}
             onClick={() => navigate("/dashboard")}
           >
-            Dashboard
+            📊 Dashboard
           </button>
+
           <button
             className={`menu-item ${isActive("/nutrition") ? "active" : ""}`}
             onClick={() => navigate("/nutrition")}
           >
-            Nutrition
+            🥗 Nutrition
           </button>
+
           <button
             className={`menu-item ${isActive("/goals") ? "active" : ""}`}
             onClick={() => navigate("/goals")}
           >
-            Goals
+            🎯 Goals
           </button>
         </nav>
 
         <button className="sidebar-logout" onClick={logout}>
-          Logout
+          🚪 Logout
         </button>
       </aside>
 
       {/* Main Content */}
       <main className="main-content">
+        {/* Welcome */}
         <section className="welcome-card">
           <h2>Welcome back 👋</h2>
           <p>Your weekly fitness overview</p>
@@ -126,12 +153,12 @@ const Dashboard = () => {
         <section className="charts-grid">
           <div className="chart-card">
             <h3>Weekly Steps</h3>
-            <Line data={stepsData} />
+            <Line data={stepsData} options={chartOptions} />
           </div>
 
           <div className="chart-card">
             <h3>Calories Burned</h3>
-            <Line data={caloriesData} />
+            <Line data={caloriesData} options={chartOptions} />
           </div>
         </section>
       </main>
