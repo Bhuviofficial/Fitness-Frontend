@@ -1,4 +1,23 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend
+);
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -10,6 +29,32 @@ const Dashboard = () => {
   };
 
   const isActive = (path) => location.pathname === path;
+
+  const stepsData = {
+    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    datasets: [
+      {
+        label: "Steps",
+        data: [6000, 7200, 8000, 7500, 9000, 10000, 8500],
+        borderColor: "#00c6a9",
+        backgroundColor: "rgba(0,198,169,0.2)",
+        tension: 0.4,
+      },
+    ],
+  };
+
+  const caloriesData = {
+    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    datasets: [
+      {
+        label: "Calories Burned",
+        data: [400, 480, 520, 500, 600, 700, 650],
+        borderColor: "#f97316",
+        backgroundColor: "rgba(249,115,22,0.2)",
+        tension: 0.4,
+      },
+    ],
+  };
 
   return (
     <div className="app-layout">
@@ -24,14 +69,12 @@ const Dashboard = () => {
           >
             Dashboard
           </button>
-
           <button
             className={`menu-item ${isActive("/nutrition") ? "active" : ""}`}
             onClick={() => navigate("/nutrition")}
           >
             Nutrition
           </button>
-
           <button
             className={`menu-item ${isActive("/goals") ? "active" : ""}`}
             onClick={() => navigate("/goals")}
@@ -45,18 +88,19 @@ const Dashboard = () => {
         </button>
       </aside>
 
-      {/* Main */}
+      {/* Main Content */}
       <main className="main-content">
         <section className="welcome-card">
           <h2>Welcome back 👋</h2>
-          <p>Your fitness summary for today</p>
+          <p>Your weekly fitness overview</p>
         </section>
 
+        {/* Stats */}
         <section className="stats-grid">
           <div className="stat-card">
             <h3>Steps</h3>
             <p className="stat-value">7,500</p>
-            <span className="stat-unit">steps</span>
+            <span className="stat-unit">today</span>
           </div>
 
           <div className="stat-card">
@@ -75,6 +119,19 @@ const Dashboard = () => {
             <h3>Workout</h3>
             <p className="stat-value">45</p>
             <span className="stat-unit">minutes</span>
+          </div>
+        </section>
+
+        {/* Charts */}
+        <section className="charts-grid">
+          <div className="chart-card">
+            <h3>Weekly Steps</h3>
+            <Line data={stepsData} />
+          </div>
+
+          <div className="chart-card">
+            <h3>Calories Burned</h3>
+            <Line data={caloriesData} />
           </div>
         </section>
       </main>
