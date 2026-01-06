@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   Chart as ChartJS,
@@ -23,6 +24,13 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [stats, setStats] = useState(null);
+  const [steps, setSteps] = useState([]);
+  const [calories, setCalories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  /* ================= LOGOUT ================= */
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/login");
@@ -30,25 +38,61 @@ const Dashboard = () => {
 
   const isActive = (path) => location.pathname === path;
 
+  /* ================= FETCH DASHBOARD DATA ================= */
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    const fetchDashboard = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/dashboard`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!res.ok) {
+          throw new Error("Failed to load dashboard");
+        }
+
+        const data = await res.json();
+
+        setStats(data.stats);
+        setSteps(data.weeklySteps);
+        setCalories(data.weeklyCalories);
+      } catch (err) {
+        setError("Server error. Please login again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboard();
+  }, [navigate]);
+
+  /* ================= UI STATES ================= */
+  if (loading) {
+    return <div className="auth-page">Loading dashboard...</div>;
+  }
+
+  if (error) {
+    return <div className="auth-page">{error}</div>;
+  }
+
+  /* ================= CHART CONFIG ================= */
   const chartOptions = {
     responsive: true,
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
+    plugins: { legend: { display: false } },
     scales: {
-      y: {
-        beginAtZero: true,
-        grid: {
-          color: "#f1f5f9",
-        },
-      },
-      x: {
-        grid: {
-          display: false,
-        },
-      },
+      y: { beginAtZero: true },
+      x: { grid: { display: false } },
     },
   };
 
@@ -56,10 +100,9 @@ const Dashboard = () => {
     labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     datasets: [
       {
-        label: "Steps",
-        data: [6000, 7200, 8000, 7500, 9000, 10000, 8500],
+        data: steps,
         borderColor: "#00c6a9",
-        backgroundColor: "rgba(0,198,169,0.2)",
+        backgroundColor: "rgba(0,198,169,0.25)",
         tension: 0.4,
         fill: true,
       },
@@ -70,19 +113,19 @@ const Dashboard = () => {
     labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     datasets: [
       {
-        label: "Calories",
-        data: [400, 480, 520, 500, 600, 700, 650],
+        data: calories,
         borderColor: "#f97316",
-        backgroundColor: "rgba(249,115,22,0.2)",
+        backgroundColor: "rgba(249,115,22,0.25)",
         tension: 0.4,
         fill: true,
       },
     ],
   };
 
+  /* ================= UI ================= */
   return (
     <div className="app-layout">
-      {/* Sidebar */}
+      {/* SIDEBAR */}
       <aside className="sidebar">
         <h2 className="sidebar-logo">FitLife</h2>
 
@@ -114,42 +157,41 @@ const Dashboard = () => {
         </button>
       </aside>
 
-      {/* Main Content */}
+      {/* MAIN */}
       <main className="main-content">
-        {/* Welcome */}
         <section className="welcome-card">
           <h2>Welcome back 👋</h2>
           <p>Your weekly fitness overview</p>
         </section>
 
-        {/* Stats */}
+        {/* STATS */}
         <section className="stats-grid">
           <div className="stat-card">
             <h3>Steps</h3>
-            <p className="stat-value">7,500</p>
+            <p className="stat-value">{stats.stepsToday}</p>
             <span className="stat-unit">today</span>
           </div>
 
           <div className="stat-card">
             <h3>Calories</h3>
-            <p className="stat-value">520</p>
+            <p className="stat-value">{stats.caloriesToday}</p>
             <span className="stat-unit">kcal</span>
           </div>
 
           <div className="stat-card">
             <h3>Water</h3>
-            <p className="stat-value">2.5</p>
+            <p className="stat-value">{stats.water}</p>
             <span className="stat-unit">litres</span>
           </div>
 
           <div className="stat-card">
             <h3>Workout</h3>
-            <p className="stat-value">45</p>
+            <p className="stat-value">{stats.workout}</p>
             <span className="stat-unit">minutes</span>
           </div>
         </section>
 
-        {/* Charts */}
+        {/* CHARTS */}
         <section className="charts-grid">
           <div className="chart-card">
             <h3>Weekly Steps</h3>
