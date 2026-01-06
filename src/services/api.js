@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://your-backend-url.onrender.com"
+  baseURL: "https://fitness-backend-1-1gej.onrender.com"
 });
 
 // Attach token to every request
