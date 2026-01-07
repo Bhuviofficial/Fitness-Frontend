@@ -49,10 +49,12 @@ function App() {
           path="/exercise"
           element={
             <ProtectedRoute>
-              <Exercise />
+              {/* Exercise component to be implemented */}
+              <div>Exercise Page</div>
             </ProtectedRoute>
           }
         />
+        
       </Routes>
     </BrowserRouter>
   );
