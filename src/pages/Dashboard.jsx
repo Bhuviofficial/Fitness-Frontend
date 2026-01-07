@@ -24,9 +24,15 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [stats, setStats] = useState(null);
-  const [steps, setSteps] = useState([]);
-  const [calories, setCalories] = useState([]);
+  const [stats, setStats] = useState({
+    stepsToday: 0,
+    caloriesToday: 0,
+    water: 0,
+    workout: 0,
+  });
+
+  const [weeklySteps, setWeeklySteps] = useState([]);
+  const [weeklyCalories, setWeeklyCalories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -38,16 +44,16 @@ const Dashboard = () => {
 
   const isActive = (path) => location.pathname === path;
 
-  /* ================= FETCH DASHBOARD DATA ================= */
+  /* ================= FETCH DASHBOARD ================= */
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      navigate("/login");
-      return;
-    }
-
     const fetchDashboard = async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+
       try {
         const res = await fetch(
           `${import.meta.env.VITE_BACKEND_URL}/api/dashboard`,
@@ -59,16 +65,16 @@ const Dashboard = () => {
         );
 
         if (!res.ok) {
-          throw new Error("Failed to load dashboard");
+          throw new Error("Unauthorized");
         }
 
         const data = await res.json();
 
         setStats(data.stats);
-        setSteps(data.weeklySteps);
-        setCalories(data.weeklyCalories);
+        setWeeklySteps(data.weeklySteps);
+        setWeeklyCalories(data.weeklyCalories);
       } catch (err) {
-        setError("Server error. Please login again.");
+        setError("Session expired. Please login again.");
       } finally {
         setLoading(false);
       }
@@ -83,13 +89,22 @@ const Dashboard = () => {
   }
 
   if (error) {
-    return <div className="auth-page">{error}</div>;
+    return (
+      <div className="auth-page">
+        <p>{error}</p>
+        <button className="primary-btn" onClick={() => navigate("/login")}>
+          Go to Login
+        </button>
+      </div>
+    );
   }
 
   /* ================= CHART CONFIG ================= */
   const chartOptions = {
     responsive: true,
-    plugins: { legend: { display: false } },
+    plugins: {
+      legend: { display: false },
+    },
     scales: {
       y: { beginAtZero: true },
       x: { grid: { display: false } },
@@ -100,7 +115,7 @@ const Dashboard = () => {
     labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     datasets: [
       {
-        data: steps,
+        data: weeklySteps,
         borderColor: "#00c6a9",
         backgroundColor: "rgba(0,198,169,0.25)",
         tension: 0.4,
@@ -113,7 +128,7 @@ const Dashboard = () => {
     labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     datasets: [
       {
-        data: calories,
+        data: weeklyCalories,
         borderColor: "#f97316",
         backgroundColor: "rgba(249,115,22,0.25)",
         tension: 0.4,
@@ -125,7 +140,7 @@ const Dashboard = () => {
   /* ================= UI ================= */
   return (
     <div className="app-layout">
-      {/* SIDEBAR */}
+      {/* ---------- SIDEBAR ---------- */}
       <aside className="sidebar">
         <h2 className="sidebar-logo">FitLife</h2>
 
@@ -157,7 +172,7 @@ const Dashboard = () => {
         </button>
       </aside>
 
-      {/* MAIN */}
+      {/* ---------- MAIN CONTENT ---------- */}
       <main className="main-content">
         <section className="welcome-card">
           <h2>Welcome back 👋</h2>
