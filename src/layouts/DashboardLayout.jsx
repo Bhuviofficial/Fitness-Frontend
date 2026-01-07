@@ -38,7 +38,12 @@ const DashboardLayout = () => {
           >
             Goals
           </button>
-          
+          <button
+            className={`menu-item ${isActive("/exercise") ? "active" : ""}`}
+            onClick={() => navigate("/exercise")}
+          >
+            Exercise
+          </button>
         </nav>
 
         <button className="sidebar-logout" onClick={logout}>
