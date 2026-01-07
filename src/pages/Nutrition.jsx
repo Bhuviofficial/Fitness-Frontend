@@ -125,7 +125,7 @@ const Nutrition = () => {
         <form className="meal-form" onSubmit={addMeal}>
           <input
             type="text"
-            placeholder="Meal name (Breakfast, Lunch...)"
+            placeholder="Meal name"
             value={form.meal}
             onChange={(e) => setForm({ ...form, meal: e.target.value })}
             required
