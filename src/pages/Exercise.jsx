@@ -1,106 +1,108 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import API from "../services/api";
+import { useState } from "react";
 
 const Exercise = () => {
-  const navigate = useNavigate();
-  const token = localStorage.getItem("token");
-
   const [exercises, setExercises] = useState([]);
-  const [form, setForm] = useState({
-    exerciseName: "",
-    duration: "",
-    date: "",
-  });
- const API_URL = import.meta.env.VITE_BACKEND_URL;
+  const [name, setName] = useState("");
+  const [duration, setDuration] = useState("");
+  const [calories, setCalories] = useState("");
 
-  /* ================= AUTH CHECK ================= */
-  useEffect(() => {
-    if (!token) navigate("/login");
-  }, [token, navigate]);
+  const handleAddExercise = () => {
+    if (!name || !duration || !calories) return;
 
-  /* ================= FETCH today EXERCISES ================= */
-  useEffect(() => {
-   const fetchExercises = async () => {
-      try {
-        const res = await fetch(`${API_URL}/api/exercise/today`, { 
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = await res.json();
-        setExercises(data);
-      } catch (err) {
-        console.error("Failed to load exercises");
-      }
+    const newExercise = {
+      id: Date.now(),
+      name,
+      duration: Number(duration),
+      calories: Number(calories),
     };
 
-    fetchExercises();
-  }, [API_URL, token]);
-
-
-  /* ================= calculations ================= */
-  const totalDuration = exercises.reduce((sum, ex) => sum + ex.duration, 0);
-  const averageDuration = exercises.length > 0 ? (totalDuration / exercises.length).toFixed(2) : 0;
-  const maxDuration = exercises.length > 0 ? Math.max(...exercises.map(ex => ex.duration)) : 0;
-  /* ================= ADD EXERCISE ================= */
-  const addExercise = async (e) => {
-    e.preventDefault(); 
-    try {
-      const res = await fetch(`${API_URL}/api/exercise`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(form),
-      });
-      if (res.ok) {
-        const
-  data = await res.json();
-        setExercises([...exercises, data]);
-        setForm({ exerciseName: "", duration: "", date: "" });
-      }
-    } catch (err) {
-      console.error("Failed to add exercise");
-    }
+    setExercises([newExercise, ...exercises]);
+    setName("");
+    setDuration("");
+    setCalories("");
   };
 
-  /*=======uI======*/
- 
+  const totalDuration = exercises.reduce((a, b) => a + b.duration, 0);
+  const totalCalories = exercises.reduce((a, b) => a + b.calories, 0);
 
   return (
-    <>
-      <h2>Exercise Tracker</h2>
-      <form onSubmit={addExercise}>
+    <div className="exercise-page">
+      {/* HEADER */}
+      <header className="exercise-header">
+        <h2>Exercise Tracking</h2>
+        <p>Log and monitor your daily workouts</p>
+      </header>
+
+      {/* SUMMARY */}
+      <section className="exercise-summary">
+        <div className="summary-card">
+          <h4>Total Duration</h4>
+          <p className="summary-value">{totalDuration} min</p>
+        </div>
+
+        <div className="summary-card">
+          <h4>Calories Burned</h4>
+          <p className="summary-value">{totalCalories} kcal</p>
+        </div>
+      </section>
+
+      {/* ADD EXERCISE */}
+      <section className="exercise-form">
+        <h3>Add Exercise</h3>
+
         <input
           type="text"
-          name="exerciseName"
-          placeholder="Exercise Name"
-          value={form.exerciseName}
-          onChange={handleInputChange}
+          placeholder="Exercise name (Running, Yoga...)"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
+
         <input
           type="number"
-          name="duration"
           placeholder="Duration (minutes)"
-          value={form.duration}
-          onChange={handleInputChange}
+          value={duration}
+          onChange={(e) => setDuration(e.target.value)}
         />
+
         <input
-          type="date"
-          name="date"
-          value={form.date}
-          onChange={handleInputChange}
+          type="number"
+          placeholder="Calories burned"
+          value={calories}
+          onChange={(e) => setCalories(e.target.value)}
         />
-        <button type="submit">Add Exercise</button>
-      </form>
-      {exercises.map(ex => (
-        <p key={ex._id}>
-          {ex.exerciseName} - {ex.duration} mins
-        </p>
-      ))}
-    </>
+
+        <button className="primary-btn" onClick={handleAddExercise}>
+          ➕ Add Exercise
+        </button>
+      </section>
+
+      {/* EXERCISE LIST */}
+      <section className="exercise-list">
+        <h3>Today’s Workouts</h3>
+
+        {exercises.length === 0 ? (
+          <p className="empty-text">No exercises logged yet</p>
+        ) : (
+          exercises.map((ex) => (
+            <div className="exercise-card" key={ex.id}>
+              <div>
+                <h4>{ex.name}</h4>
+                <p>{ex.duration} min • {ex.calories} kcal</p>
+              </div>
+
+              <div className="exercise-progress">
+                <div
+                  className="progress-fill"
+                  style={{
+                    width: `${Math.min((ex.duration / 60) * 100, 100)}%`,
+                  }}
+                />
+              </div>
+            </div>
+          ))
+        )}
+      </section>
+    </div>
   );
 };
 
