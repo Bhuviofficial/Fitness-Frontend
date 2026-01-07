@@ -1,137 +1,87 @@
-import { useEffect, useState } from "react";
+import React from "react";
 
 const Goals = () => {
-  const [goals, setGoals] = useState([]);
-  const [title, setTitle] = useState("");
-  const [target, setTarget] = useState("");
-  const [progress, setProgress] = useState("");
-
-  /* ---------------- FETCH GOALS ---------------- */
-  useEffect(() => {
-    const fetchGoals = async () => {
-      const token = localStorage.getItem("token");
-
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/goals`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const data = await res.json();
-      setGoals(data);
-    };
-
-    fetchGoals();
-  }, []);
-
-  /* ---------------- CREATE GOAL ---------------- */
-  const createGoal = async (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem("token");
-
-    const res = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/goals`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          title,
-          target,
-          progress,
-        }),
-      }
-    );
-
-    const newGoal = await res.json();
-    setGoals([newGoal, ...goals]);
-
-    setTitle("");
-    setTarget("");
-    setProgress("");
-  };
+  const goals = [
+    {
+      title: "Daily Steps",
+      current: 6500,
+      target: 10000,
+      status: "active",
+    },
+    {
+      title: "Calories Burn",
+      current: 420,
+      target: 600,
+      status: "active",
+    },
+    {
+      title: "Water Intake",
+      current: 2.5,
+      target: 3,
+      status: "done",
+    },
+  ];
 
   return (
     <div className="goals-page">
       {/* HEADER */}
-      <header className="goals-header">
+      <div className="goals-header">
         <div>
-          <h2>🎯 Your Fitness Goals</h2>
-          <p>Track progress & stay motivated</p>
+          <h2>Your Goals</h2>
+          <p>Track your daily fitness targets</p>
         </div>
-      </header>
+      </div>
 
-      {/* CREATE GOAL */}
-      <section className="goal-form-card">
+      {/* CREATE GOAL CARD */}
+      <div className="goal-form-card">
         <h3>Create New Goal</h3>
-
-        <form onSubmit={createGoal} className="goal-form">
-          <input
-            type="text"
-            placeholder="Goal title (eg. Lose weight)"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-
-          <input
-            type="text"
-            placeholder="Target (eg. 5 kg / 10,000 steps)"
-            value={target}
-            onChange={(e) => setTarget(e.target.value)}
-            required
-          />
-
-          <input
-            type="number"
-            placeholder="Progress %"
-            value={progress}
-            onChange={(e) => setProgress(e.target.value)}
-            required
-          />
-
+        <div className="goal-form">
+          <input type="text" placeholder="Goal Name" />
+          <input type="number" placeholder="Target Value" />
+          <input type="text" placeholder="Unit (steps, kcal, L)" />
           <button className="primary-btn">Add Goal</button>
-        </form>
-      </section>
+        </div>
+      </div>
 
-      {/* GOALS LIST */}
-      <section className="goals-grid">
-        {goals.length === 0 && (
-          <p className="empty-text">No goals yet. Start now 🚀</p>
-        )}
+      {/* GOALS GRID */}
+      <div className="goals-grid">
+        {goals.map((goal, index) => {
+          const progress = Math.min(
+            (goal.current / goal.target) * 100,
+            100
+          );
 
-        {goals.map((goal) => (
-          <div key={goal._id} className="goal-card">
-            <div className="goal-card-header">
-              <h4>{goal.title}</h4>
-              <span
-                className={`goal-status ${
-                  goal.progress >= 100 ? "done" : "active"
-                }`}
-              >
-                {goal.progress >= 100 ? "Completed" : "In Progress"}
+          return (
+            <div className="goal-card" key={index}>
+              <div className="goal-card-header">
+                <h4>{goal.title}</h4>
+                <span
+                  className={`goal-status ${
+                    goal.status === "done" ? "done" : "active"
+                  }`}
+                >
+                  {goal.status === "done" ? "Completed" : "In Progress"}
+                </span>
+              </div>
+
+              <div className="goal-target">
+                {goal.current} / {goal.target}
+              </div>
+
+              <div className="progress-bar">
+                <div
+                  className="progress-fill"
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+
+              <span className="progress-text">
+                {Math.round(progress)}% achieved
               </span>
             </div>
-
-            <p className="goal-target">🎯 Target: {goal.target}</p>
-
-            {/* PROGRESS BAR */}
-            <div className="progress-bar">
-              <div
-                className="progress-fill"
-                style={{ width: `${goal.progress}%` }}
-              ></div>
-            </div>
-
-            <span className="progress-text">{goal.progress}% completed</span>
-          </div>
-        ))}
-      </section>
+          );
+        })}
+      </div>
     </div>
   );
 };
