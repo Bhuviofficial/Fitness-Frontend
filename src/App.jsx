@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Nutrition from "./pages/Nutrition";
 import Goals from "./pages/Goals";
+import Exercise from "./pages/Exercise";
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -42,6 +43,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Goals />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/exercise"
+          element={
+            <ProtectedRoute>
+              <Exercise />
             </ProtectedRoute>
           }
         />

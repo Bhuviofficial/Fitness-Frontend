@@ -6,102 +6,58 @@ const Exercise = () => {
   const [duration, setDuration] = useState("");
   const [calories, setCalories] = useState("");
 
-  const handleAddExercise = () => {
+  const addExercise = () => {
     if (!name || !duration || !calories) return;
 
-    const newExercise = {
-      id: Date.now(),
-      name,
-      duration: Number(duration),
-      calories: Number(calories),
-    };
+    setExercises([
+      {
+        id: Date.now(),
+        name,
+        duration,
+        calories,
+      },
+      ...exercises,
+    ]);
 
-    setExercises([newExercise, ...exercises]);
     setName("");
     setDuration("");
     setCalories("");
   };
 
-  const totalDuration = exercises.reduce((a, b) => a + b.duration, 0);
-  const totalCalories = exercises.reduce((a, b) => a + b.calories, 0);
-
   return (
     <div className="exercise-page">
-      {/* HEADER */}
-      <header className="exercise-header">
-        <h2>Exercise Tracking</h2>
-        <p>Log and monitor your daily workouts</p>
-      </header>
+      <h2>Exercise Tracking</h2>
+      <p>Log your workouts</p>
 
-      {/* SUMMARY */}
-      <section className="exercise-summary">
-        <div className="summary-card">
-          <h4>Total Duration</h4>
-          <p className="summary-value">{totalDuration} min</p>
-        </div>
-
-        <div className="summary-card">
-          <h4>Calories Burned</h4>
-          <p className="summary-value">{totalCalories} kcal</p>
-        </div>
-      </section>
-
-      {/* ADD EXERCISE */}
-      <section className="exercise-form">
-        <h3>Add Exercise</h3>
-
+      <div className="exercise-form">
         <input
-          type="text"
-          placeholder="Exercise name (Running, Yoga...)"
+          placeholder="Exercise name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-
         <input
           type="number"
-          placeholder="Duration (minutes)"
+          placeholder="Duration (min)"
           value={duration}
           onChange={(e) => setDuration(e.target.value)}
         />
-
         <input
           type="number"
           placeholder="Calories burned"
           value={calories}
           onChange={(e) => setCalories(e.target.value)}
         />
-
-        <button className="primary-btn" onClick={handleAddExercise}>
-          ➕ Add Exercise
+        <button className="primary-btn" onClick={addExercise}>
+          Add Exercise
         </button>
-      </section>
+      </div>
 
-      {/* EXERCISE LIST */}
-      <section className="exercise-list">
-        <h3>Today’s Workouts</h3>
-
-        {exercises.length === 0 ? (
-          <p className="empty-text">No exercises logged yet</p>
-        ) : (
-          exercises.map((ex) => (
-            <div className="exercise-card" key={ex.id}>
-              <div>
-                <h4>{ex.name}</h4>
-                <p>{ex.duration} min • {ex.calories} kcal</p>
-              </div>
-
-              <div className="exercise-progress">
-                <div
-                  className="progress-fill"
-                  style={{
-                    width: `${Math.min((ex.duration / 60) * 100, 100)}%`,
-                  }}
-                />
-              </div>
-            </div>
-          ))
-        )}
-      </section>
+      {exercises.map((e) => (
+        <div className="exercise-card" key={e.id}>
+          <h4>{e.name}</h4>
+          <p>{e.duration} min • {e.calories} kcal</p>
+        </div>
+      ))}
     </div>
   );
 };
