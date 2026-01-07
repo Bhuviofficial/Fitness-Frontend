@@ -10,7 +10,7 @@ const Exercise = () => {
   const token = localStorage.getItem("token");
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-  /* ================= FETCH EXERCISES ================= */
+ // fetch exercises 
   useEffect(() => {
     const fetchExercises = async () => {
       try {
@@ -30,8 +30,8 @@ const Exercise = () => {
 
     fetchExercises();
   }, []);
-
-  /* ================= ADD EXERCISE ================= */
+  
+// add new exercise
   const addExercise = async () => {
     if (!name || !duration || !calories)
       return alert("Fill all fields");

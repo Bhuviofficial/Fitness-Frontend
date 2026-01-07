@@ -10,7 +10,7 @@ const Goals = () => {
   const token = localStorage.getItem("token");
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-  /* ================= FETCH GOALS ================= */
+  // fetch goals 
   useEffect(() => {
     const fetchGoals = async () => {
       try {
@@ -31,7 +31,7 @@ const Goals = () => {
     fetchGoals();
   }, []);
 
-  /* ================= ADD GOAL ================= */
+  // add new goal
   const addGoal = async () => {
     if (!name || !target || !unit) return alert("Fill all fields");
 

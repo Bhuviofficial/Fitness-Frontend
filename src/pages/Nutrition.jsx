@@ -16,12 +16,11 @@ const Nutrition = () => {
 
   const API = import.meta.env.VITE_BACKEND_URL;
 
-  /* ================= AUTH CHECK ================= */
   useEffect(() => {
     if (!token) navigate("/login");
   }, [token, navigate]);
 
-  /* ================= FETCH TODAY MEALS ================= */
+  //fetch meals
   useEffect(() => {
     const fetchMeals = async () => {
       try {
@@ -40,7 +39,7 @@ const Nutrition = () => {
     fetchMeals();
   }, [API, token]);
 
-  /* ================= CALCULATIONS ================= */
+  //calculate totals
   const totals = meals.reduce(
     (acc, meal) => {
       acc.calories += meal.calories;
@@ -52,7 +51,7 @@ const Nutrition = () => {
     { calories: 0, protein: 0, carbs: 0, fats: 0 }
   );
 
-  /* ================= ADD MEAL ================= */
+//add meal 
   const addMeal = async (e) => {
     e.preventDefault();
 
@@ -87,7 +86,7 @@ const Nutrition = () => {
     }
   };
 
-  /* ================= UI ================= */
+  //main return
   return (
     <div className="nutrition-page">
       <header className="nutrition-header">

@@ -36,7 +36,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  /* ================= LOGOUT ================= */
+//logout function
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/login");
@@ -44,7 +44,7 @@ const Dashboard = () => {
 
   const isActive = (path) => location.pathname === path;
 
-  /* ================= FETCH DASHBOARD ================= */
+  //fetch dashboard data
   useEffect(() => {
     const fetchDashboard = async () => {
       const token = localStorage.getItem("token");
@@ -83,7 +83,7 @@ const Dashboard = () => {
     fetchDashboard();
   }, [navigate]);
 
-  /* ================= UI STATES ================= */
+//loading and error states
   if (loading) {
     return <div className="auth-page">Loading dashboard...</div>;
   }
@@ -99,7 +99,7 @@ const Dashboard = () => {
     );
   }
 
-  /* ================= CHART CONFIG ================= */
+//chart configurations
   const chartOptions = {
     responsive: true,
     plugins: {
@@ -136,8 +136,7 @@ const Dashboard = () => {
       },
     ],
   };
-
-  /* ================= UI ================= */
+//main return
   return (
     <div className="app-layout">
       {/* ---------- SIDEBAR ---------- */}
@@ -178,8 +177,7 @@ const Dashboard = () => {
           🚪 Logout
         </button>
       </aside>
-
-      {/* ---------- MAIN CONTENT ---------- */}
+      
       <main className="main-content">
         <section className="welcome-card">
           <h2>Welcome back 👋</h2>
