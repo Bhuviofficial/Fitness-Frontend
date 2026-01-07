@@ -15,6 +15,7 @@ export default function Sidebar() {
         <li onClick={() => navigate("/dashboard")}>Dashboard</li>
         <li onClick={() => navigate("/nutrition")}>Nutrition</li>
         <li onClick={() => navigate("/goals")}>Goals</li>
+        <li onClick={() => navigate("/exercise")}>Exercise</li>
         <li className="logout" onClick={logout}>Logout</li>
       </ul>
     </div>
