@@ -6,40 +6,45 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
   const API = import.meta.env.VITE_BACKEND_URL;
 
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
       const res = await fetch(`${API}/api/auth/register`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password })
       });
 
       const data = await res.json();
 
       if (!res.ok) {
         setError(data.message || "Registration failed");
+        setLoading(false);
+        return;
+      }
+
+      // 🔐 IMPORTANT SAFETY CHECK
+      if (!data.token) {
+        setError("Registration succeeded but no token received");
+        setLoading(false);
         return;
       }
 
       localStorage.setItem("token", data.token);
-
-
       navigate("/dashboard");
+
     } catch (err) {
       setError("Server error. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -78,8 +83,8 @@ const Register = () => {
           required
         />
 
-        <button type="submit" className="primary-btn">
-          Register
+        <button className="primary-btn" disabled={loading}>
+          {loading ? "Creating account..." : "Register"}
         </button>
 
         <p className="switch-text">

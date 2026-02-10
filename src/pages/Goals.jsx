@@ -11,25 +11,22 @@ const Goals = () => {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   // fetch goals 
-  useEffect(() => {
-    const fetchGoals = async () => {
-      try {
-        const res = await fetch(`${BACKEND_URL}/api/goals`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = await res.json();
-        setGoals(data);
-      } catch (err) {
-        console.error("Failed to load goals");
-      } finally {
-        setLoading(false);
+ useEffect(() => {
+  const fetchGoals = async () => {
+    const res = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/goals`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       }
-    };
+    );
+    const data = await res.json();
+    setGoals(data);
+  };
 
-    fetchGoals();
-  }, []);
+  fetchGoals();
+}, []);
 
   // add new goal
   const addGoal = async () => {

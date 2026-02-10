@@ -12,24 +12,15 @@ const Exercise = () => {
 
  // fetch exercises 
   useEffect(() => {
-    const fetchExercises = async () => {
-      try {
-        const res = await fetch(`${BACKEND_URL}/api/exercises`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = await res.json();
-        setExercises(data);
-      } catch (err) {
-        console.error("Failed to load exercises");
-      } finally {
-        setLoading(false);
-      }
-    };
+  fetch(`${BACKEND_URL}/api/exercises`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then(res => res.json())
+    .then(data => setExercises(data));
+}, []);
 
-    fetchExercises();
-  }, []);
   
 // add new exercise
   const addExercise = async () => {

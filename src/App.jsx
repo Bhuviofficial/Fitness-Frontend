@@ -5,56 +5,31 @@ import Dashboard from "./pages/Dashboard";
 import Nutrition from "./pages/Nutrition";
 import Goals from "./pages/Goals";
 import Exercise from "./pages/Exercise";
+import DashboardLayout from "./layouts/DashboardLayout";
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedLayout = () => {
   const token = localStorage.getItem("token");
-  return token ? children : <Navigate to="/login" />;
+  return token ? <DashboardLayout /> : <Navigate to="/login" />;
 };
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Default */}
         <Route path="/" element={<Navigate to="/login" />} />
 
+        {/* Public routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/nutrition"
-          element={
-            <ProtectedRoute>
-              <Nutrition />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/goals"
-          element={
-            <ProtectedRoute>
-              <Goals />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/exercise"
-          element={
-            <ProtectedRoute>
-              <Exercise />
-            </ProtectedRoute>
-          }
-        />
-
+        {/* Protected Dashboard Layout */}
+        <Route element={<ProtectedLayout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/nutrition" element={<Nutrition />} />
+          <Route path="/goals" element={<Goals />} />
+          <Route path="/exercise" element={<Exercise />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
