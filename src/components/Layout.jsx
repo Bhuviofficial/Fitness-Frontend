@@ -13,6 +13,7 @@ const Layout = ({ children }) => {
 
   return (
     <div className="app-layout">
+      {/* SIDEBAR */}
       <aside className="sidebar">
         <h2 className="sidebar-logo">FitLife</h2>
 
@@ -31,9 +32,12 @@ const Layout = ({ children }) => {
           </button>
         </nav>
 
-        <button className="sidebar-logout" onClick={logout}>🚪 Logout</button>
+        <button className="sidebar-logout" onClick={logout}>
+          🚪 Logout
+        </button>
       </aside>
 
+      {/* MAIN */}
       <main className="main-content">{children}</main>
     </div>
   );
