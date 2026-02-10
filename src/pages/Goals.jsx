@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Goals = () => {
   const [goals, setGoals] = useState([]);
@@ -6,6 +6,17 @@ const Goals = () => {
   const [name, setName] = useState("");
   const [target, setTarget] = useState("");
   const [unit, setUnit] = useState("");
+
+  // LOAD goals on page open
+  useEffect(() => {
+    const savedGoals = JSON.parse(localStorage.getItem("goals")) || [];
+    setGoals(savedGoals);
+  }, []);
+
+  // SAVE goals whenever updated
+  useEffect(() => {
+    localStorage.setItem("goals", JSON.stringify(goals));
+  }, [goals]);
 
   const addGoal = () => {
     if (!name || !target || !unit) return;
@@ -15,12 +26,11 @@ const Goals = () => {
       name,
       target,
       unit,
-      progress: 0
+      progress: 0,
     };
 
     setGoals([...goals, newGoal]);
 
-    // clear inputs
     setName("");
     setTarget("");
     setUnit("");
@@ -30,60 +40,23 @@ const Goals = () => {
     <div className="goals-page">
       <div className="goals-header">
         <h2>Goals</h2>
-        <p>Track and achieve your fitness goals</p>
+        <p>Track and achieve your goals</p>
       </div>
 
-      {/* ADD GOAL FORM */}
       <div className="goal-form">
-        <input
-          type="text"
-          placeholder="Goal name (e.g. Steps)"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-
-        <input
-          type="number"
-          placeholder="Target (e.g. 10000)"
-          value={target}
-          onChange={(e) => setTarget(e.target.value)}
-        />
-
-        <input
-          type="text"
-          placeholder="Unit (steps, kcal, km)"
-          value={unit}
-          onChange={(e) => setUnit(e.target.value)}
-        />
-
-        <button className="primary-btn" onClick={addGoal}>
-          Add Goal
-        </button>
+        <input placeholder="Goal name" value={name} onChange={(e) => setName(e.target.value)} />
+        <input type="number" placeholder="Target" value={target} onChange={(e) => setTarget(e.target.value)} />
+        <input placeholder="Unit (steps, kcal)" value={unit} onChange={(e) => setUnit(e.target.value)} />
+        <button className="primary-btn" onClick={addGoal}>Add Goal</button>
       </div>
 
-      {/* GOALS LIST */}
       <div className="goals-grid">
-        {goals.length === 0 && <p>No goals added yet</p>}
-
         {goals.map((goal) => (
           <div className="goal-card" key={goal.id}>
             <h4>{goal.name}</h4>
             <div className="goal-value">
               {goal.progress} / {goal.target} {goal.unit}
             </div>
-
-            <div className="progress-bar">
-              <div
-                className="progress-fill"
-                style={{
-                  width: `${(goal.progress / goal.target) * 100}%`
-                }}
-              />
-            </div>
-
-            <p className="goal-progress">
-              Progress: {goal.progress} {goal.unit}
-            </p>
           </div>
         ))}
       </div>
