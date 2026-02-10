@@ -33,11 +33,11 @@ const Exercise = () => {
         <p>Log your workouts</p>
       </div>
 
-      <div className="exercise-form">
-  <input placeholder="Exercise name" />
-  <input placeholder="Minutes" />
-  <button>Add Exercise</button>
-</div>
+      <div className="goal-form">
+        <input placeholder="Exercise name" value={name} onChange={(e) => setName(e.target.value)} />
+        <input type="number" placeholder="Minutes" value={duration} onChange={(e) => setDuration(e.target.value)} />
+        <button className="primary-btn" onClick={addExercise}>Add Exercise</button>
+      </div>
 
       <div className="goals-grid">
         {exercises.map((ex) => (

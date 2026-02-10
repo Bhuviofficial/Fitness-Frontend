@@ -1,17 +1,18 @@
+/* ===================== RESET ===================== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* BASE */
+/* ===================== BASE ===================== */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
-  background-color: #f4f6f8;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: #f4f6f8;
   color: #111827;
 }
 
-/* PAGE CENTER */
+/* ===================== AUTH ===================== */
 .auth-page {
   min-height: 100vh;
   display: flex;
@@ -19,25 +20,20 @@ body {
   justify-content: center;
 }
 
-/* CARD */
 .auth-card {
-  background: #ffffff;
   width: 380px;
+  background: white;
   padding: 40px 36px;
-  border-radius: 12px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
 
-/* BRAND */
 .brand {
   text-align: center;
   font-size: 28px;
   font-weight: 700;
-  margin-bottom: 6px;
-  color: #0f172a;
 }
 
-/* SUBTITLE */
 .subtitle {
   text-align: center;
   font-size: 14px;
@@ -45,172 +41,50 @@ body {
   margin-bottom: 28px;
 }
 
-/* LABEL */
 .auth-card label {
-  display: block;
   font-size: 13px;
   font-weight: 500;
-  color: #374151;
+  display: block;
   margin-bottom: 6px;
 }
 
-/* INPUT */
 .auth-card input {
   width: 100%;
   padding: 12px;
-  margin-bottom: 18px;
   border-radius: 8px;
   border: 1px solid #d1d5db;
-  font-size: 14px;
-  outline: none;
+  margin-bottom: 18px;
 }
 
 .auth-card input:focus {
-  border-color: #111827;
+  outline: none;
+  border-color: #00c6a9;
 }
 
-/* BUTTON */
 .primary-btn {
   width: 100%;
   padding: 12px;
-  margin-top: 4px;
-  background-color: #111827;
-  color: #ffffff;
+  border-radius: 10px;
   border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.primary-btn:hover {
-  background-color: #000000;
-}
-
-/* ERROR */
-.error-box {
-  background-color: #fee2e2;
-  color: #991b1b;
-  font-size: 13px;
-  padding: 10px;
-  border-radius: 6px;
-  margin-bottom: 18px;
-  text-align: center;
-}
-.switch-text {
-  margin-top: 22px;
-  text-align: center;
-  font-size: 14px;
-  color: #6b7280;
-}
-
-.switch-text a {
-  color: #111827;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.switch-text a:hover {
-  text-decoration: underline;
-}
-/* ---------- DASHBOARD ---------- */
-
-.dashboard-page {
-  min-height: 100vh;
-  background: #f4f6f8;
-  font-family: "Segoe UI", sans-serif;
-}
-
-/* Navbar */
-.dashboard-navbar {
-  background: #ffffff;
-  padding: 16px 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.logo {
-  font-size: 24px;
-  font-weight: 700;
-  color: #00c6a9;
-}
-
-.logout-btn {
-  background: #ff4d4d;
-  color: white;
-  border: none;
-  padding: 8px 18px;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.logout-btn:hover {
-  background: #e63939;
-}
-
-/* Welcome Card */
-.welcome-card {
-  margin: 32px;
   background: linear-gradient(135deg, #00c6a9, #00e0c7);
   color: white;
-  padding: 30px;
-  border-radius: 16px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-.welcome-card h2 {
-  font-size: 28px;
-  margin-bottom: 8px;
+.error-box {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 16px;
 }
 
-.welcome-card p {
-  opacity: 0.9;
-}
-
-/* Stats Grid */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
-  padding: 0 32px 32px;
-}
-
-/* Stat Cards */
-.stat-card {
-  background: white;
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-5px);
-}
-
-.stat-card h3 {
-  font-size: 16px;
-  color: #666;
-  margin-bottom: 12px;
-}
-
-.stat-value {
-  font-size: 36px;
-  font-weight: 700;
-  color: #00c6a9;
-}
-
-.stat-unit {
-  color: #888;
-  font-size: 14px;
-}
+/* ===================== LAYOUT ===================== */
 .app-layout {
   display: flex;
   min-height: 100vh;
-  background: #f4f6f8;
-  font-family: "Segoe UI", sans-serif;
 }
 
 .sidebar {
@@ -227,8 +101,8 @@ body {
   font-size: 24px;
   font-weight: 700;
   color: #00e0c7;
-  margin-bottom: 40px;
   text-align: center;
+  margin-bottom: 40px;
 }
 
 .sidebar-menu {
@@ -242,9 +116,8 @@ body {
   border: none;
   color: #cbd5e1;
   padding: 12px 16px;
-  border-radius: 8px;
+  border-radius: 10px;
   text-align: left;
-  font-size: 15px;
   cursor: pointer;
 }
 
@@ -257,11 +130,10 @@ body {
 .sidebar-logout {
   background: #ff4d4d;
   border: none;
-  color: white;
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 10px;
+  color: white;
   cursor: pointer;
-  font-size: 14px;
 }
 
 .main-content {
@@ -269,722 +141,154 @@ body {
   padding: 32px;
 }
 
-/* Welcome Card */
+/* ===================== DASHBOARD ===================== */
 .welcome-card {
   background: linear-gradient(135deg, #00c6a9, #00e0c7);
   color: white;
   padding: 30px;
-  border-radius: 16px;
-  margin-bottom: 32px;
+  border-radius: 18px;
+  margin-bottom: 30px;
 }
 
-.welcome-card h2 {
-  font-size: 28px;
-  margin-bottom: 6px;
-}
-
-/* Stats Grid */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 22px;
 }
 
 .stat-card {
   background: white;
-  border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-5px);
-}
-
-.stat-card h3 {
-  font-size: 15px;
-  color: #666;
-  margin-bottom: 12px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
 }
 
 .stat-value {
-  font-size: 36px;
+  font-size: 34px;
   font-weight: 700;
   color: #00c6a9;
 }
 
-.stat-unit {
-  color: #888;
-  font-size: 14px;
-}
-/* Nutrition Page */
-
-.nutrition-page {
-  padding: 30px;
-}
-
-.nutrition-header h2 {
-  font-size: 28px;
-  margin-bottom: 5px;
-}
-
-.nutrition-header p {
-  color: #777;
-  margin-bottom: 25px;
-}
-
-/* Summary Cards */
-.nutrition-summary {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-.summary-card {
-  background: white;
-  border-radius: 14px;
-  padding: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
-}
-
-.summary-card:hover {
-  transform: translateY(-4px);
-}
-
-.summary-card h4 {
-  color: #555;
-  font-size: 14px;
-  margin-bottom: 8px;
-}
-
-.summary-value {
-  font-size: 22px;
-  font-weight: 600;
-  color: #111;
-}
-
-/* Meals */
-.meals-section h3 {
-  margin-bottom: 15px;
-}
-
-.meal-card {
-  background: white;
-  border-radius: 14px;
-  padding: 16px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-}
-
-.meal-card h4 {
-  margin-bottom: 4px;
-}
-
-.meal-card p {
-  color: #777;
-  font-size: 14px;
-}
-
-.meal-cal {
-  font-weight: 600;
-  color: #16a34a;
-}
-
-
-.goals-page {
-  padding: 30px;
-}
-
-.goals-header h2 {
-  font-size: 28px;
-  margin-bottom: 5px;
-}
-
-.goals-header p {
-  color: #777;
-  margin-bottom: 25px;
-}
-
-.goals-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-}
-
-.goal-card {
-  background: white;
-  padding: 22px;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-}
-
-.goal-card h4 {
-  color: #555;
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
-.goal-value {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 15px;
-}
-
-.progress-bar {
-  height: 8px;
-  background: #e5e7eb;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-bottom: 8px;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #22c55e, #16a34a);
-  border-radius: 20px;
-}
-
-.goal-progress {
-  font-size: 13px;
-  color: #777;
-}
-
-.charts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
-  margin-top: 30px;
-}
-
-.chart-card {
-  background: white;
-  padding: 24px;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-}
-
-.chart-card h3 {
-  margin-bottom: 15px;
-  font-size: 16px;
-  color: #333;
-}
-
-.dashboard-page,
-.main-content,
-.nutrition-page,
-.goals-page {
-  animation: fadeSlide 0.5s ease;
-}
-
-@keyframes fadeSlide {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.stat-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.stat-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  background: rgba(0, 198, 169, 0.12);
-  color: #00c6a9;
-}
-
-.stat-footer {
-  margin-top: 10px;
-  font-size: 13px;
-  color: #6b7280;
-}
-
-.section {
-  margin-bottom: 40px;
-}
-.menu-item.active {
-  position: relative;
-}
-
-.menu-item.active::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 8px;
-  height: 70%;
-  width: 4px;
-  background: #00e0c7;
-  border-radius: 4px;
-}
-
-.menu-item,
-.logout-btn,
-.sidebar-logout,
-.primary-btn {
-  transition: all 0.2s ease;
-}
-
-.chart-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.08);
-}
-
-.summary-card:hover,
-.goal-card:hover,
-.meal-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-.goals-page {
-  padding: 32px;
-}
-
-.goals-header {
-  margin-bottom: 30px;
-}
-
-.goals-header h2 {
+/* ===================== PAGE HEADERS ===================== */
+.page-header h2 {
   font-size: 30px;
   font-weight: 700;
 }
 
-.goals-header p {
+.page-header p {
   color: #6b7280;
+  margin-bottom: 26px;
 }
 
-/* Add Goal Card */
-.goals-page .section {
-  background: linear-gradient(135deg, #00c6a9, #00e0c7);
-  color: white;
-  padding: 28px;
-  border-radius: 18px;
-  margin-bottom: 32px;
-}
-
-.goals-page .section h4 {
-  font-size: 18px;
-  margin-bottom: 18px;
-}
-
-/* Goal Cards */
-.goals-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 22px;
-}
-
-.goal-card {
-  background: white;
-  border-radius: 18px;
-  padding: 26px;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.06);
-  transition: all 0.3s ease;
-}
-
-.goal-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.1);
-}
-
-.goal-card h4 {
-  font-size: 16px;
-  color: #374151;
-  margin-bottom: 10px;
-}
-
-.goal-value {
-  font-size: 26px;
-  font-weight: 700;
-  color: #00c6a9;
-}
-
-/* Progress */
-.progress-bar {
-  height: 10px;
-  background: #e5e7eb;
-  border-radius: 20px;
-  overflow: hidden;
-  margin: 14px 0 6px;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #22c55e, #16a34a);
-}
-
-.goal-progress {
-  font-size: 13px;
-  color: #6b7280;
-}
-.nutrition-page {
-  padding: 32px;
-}
-
-.nutrition-header h2 {
-  font-size: 30px;
-  font-weight: 700;
-}
-
-.nutrition-header p {
-  color: #6b7280;
-  margin-bottom: 28px;
-}
-
-/* Summary */
-.nutrition-summary {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 22px;
-  margin-bottom: 36px;
-}
-
-.summary-card {
-  background: linear-gradient(135deg, #ffffff, #f9fafb);
-  padding: 24px;
-  border-radius: 18px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-  text-align: center;
-}
-
-.summary-value {
-  font-size: 28px;
-  font-weight: 700;
-  color: #16a34a;
-}
-
-/* Meals */
-.meal-card {
-  background: white;
-  border-radius: 18px;
-  padding: 20px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
-  box-shadow: 0 12px 26px rgba(0,0,0,0.06);
-  transition: all 0.25s ease;
-}
-
-.meal-card:hover {
-  transform: translateY(-4px);
-}
-
-.meal-cal {
-  font-size: 15px;
-  font-weight: 600;
-  color: #16a34a;
-}
-
-.exercise-page {
-  padding: 32px;
-}
-
-.exercise-header h2 {
-  font-size: 30px;
-  font-weight: 700;
-}
-
-.exercise-header p {
-  color: #6b7280;
-  margin-bottom: 28px;
-}
-
-/* Add Exercise */
-.exercise-form {
-  background: linear-gradient(135deg, #0f172a, #020617);
-  color: white;
-  padding: 28px;
-  border-radius: 18px;
-  margin-bottom: 30px;
-}
-
-/* Exercise Cards */
-.exercise-card {
-  background: white;
-  padding: 22px;
-  border-radius: 18px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.06);
-  margin-bottom: 18px;
-}
-
-.exercise-card h4 {
-  font-size: 16px;
-}
-
-.exercise-meta {
-  font-size: 13px;
-  color: #6b7280;
-}
-
-.exercise-cal {
-  font-weight: 700;
-  color: #f97316;
-}
-.page-header {
-  margin-bottom: 20px;
-}
-
-.card-form {
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 14px;
-  max-width: 420px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-}
-
-.card-form label {
-  display: block;
-  margin: 12px 0 6px;
-  font-weight: 500;
-}
-
-.card-form input {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  outline: none;
-}
-
-.card-form input:focus {
-  border-color: #00c6a9;
-}
-
-.primary-btn {
-  margin-top: 20px;
-  width: 100%;
-}
-/* ============================= */
-/* SHARED FORM STYLES */
-/* ============================= */
-
+/* ===================== FORMS ===================== */
 .goal-form,
 .exercise-form,
 .nutrition-form {
-  background: #ffffff;
-  padding: 24px;
-  border-radius: 16px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  background: white;
+  padding: 26px;
+  border-radius: 18px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
   gap: 16px;
   margin-bottom: 30px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.06);
 }
 
-/* INPUTS */
 .goal-form input,
 .exercise-form input,
-.nutrition-form input,
-.goal-form select,
-.exercise-form select {
-  padding: 14px 16px;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  font-size: 14px;
-  background: #f9fafb;
-  transition: all 0.2s ease;
+.nutrition-form input {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
 }
 
-.goal-form input:focus,
-.exercise-form input:focus,
-.nutrition-form input:focus {
-  outline: none;
-  border-color: #00c6a9;
-  background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(0, 198, 169, 0.15);
-}
-
-/* ADD BUTTON */
 .goal-form button,
 .exercise-form button,
 .nutrition-form button {
   grid-column: span 2;
   padding: 14px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #00c6a9, #00e0c7);
+  background: linear-gradient(135deg,#00c6a9,#00e0c7);
   color: white;
-  font-size: 15px;
   font-weight: 600;
   border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.goal-form button:hover,
-.exercise-form button:hover,
-.nutrition-form button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 25px rgba(0, 198, 169, 0.35);
+/* ===================== GOALS ===================== */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+  gap: 22px;
 }
-
-/* ============================= */
-/* GOAL & EXERCISE CARDS */
-/* ============================= */
 
 .goal-card {
-  background: #ffffff;
-  padding: 22px;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-  transition: all 0.2s ease;
-  position: relative;
+  background: white;
+  padding: 26px;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+}
+
+.progress-bar {
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 20px;
   overflow: hidden;
 }
 
-.goal-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    rgba(0, 198, 169, 0.12),
-    transparent
-  );
-  opacity: 0;
-  transition: opacity 0.2s ease;
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg,#22c55e,#16a34a);
 }
 
-.goal-card:hover::after {
-  opacity: 1;
+/* ===================== NUTRITION ===================== */
+.nutrition-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  gap: 22px;
+  margin-bottom: 32px;
 }
 
-.goal-card:hover {
-  transform: translateY(-6px);
+.summary-card {
+  background: white;
+  padding: 24px;
+  border-radius: 18px;
+  text-align: center;
 }
-
-.goal-card h4 {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #0f172a;
-}
-
-.goal-value {
-  font-size: 22px;
-  font-weight: 700;
-  color: #00c6a9;
-}
-
-/* ============================= */
-/* NUTRITION MEAL INPUT LOOK */
-/* ============================= */
 
 .meal-card {
-  border-left: 5px solid #00c6a9;
+  background: white;
+  padding: 20px;
+  border-radius: 18px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
 
-.meal-cal {
-  background: rgba(22, 163, 74, 0.1);
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 13px;
-  color: #16a34a;
-  font-weight: 600;
+/* ===================== EXERCISE ===================== */
+.exercise-card {
+  background: white;
+  padding: 22px;
+  border-radius: 18px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.06);
+  margin-bottom: 18px;
 }
 
-/* ============================= */
-/* PAGE HEADERS */
-/* ============================= */
-
-.goals-header h2,
-.nutrition-header h2 {
-  font-size: 28px;
-  font-weight: 700;
-  color: #0f172a;
-}
-
-.goals-header p,
-.nutrition-header p {
-  color: #64748b;
-}
-
-
-/* ---------- MOBILE ---------- */
-
-@media (max-width: 600px) {
-  .goal-form {
-    grid-template-columns: 1fr;
-  }
-
-  .goals-header h2 {
-    font-size: 22px;
-  }
-}
-
+/* ===================== MOBILE ===================== */
 @media (max-width: 900px) {
   .sidebar {
     width: 70px;
-    padding: 20px 8px;
   }
-
-  .sidebar-logo {
-    font-size: 18px;
-    margin-bottom: 20px;
-  }
-
   .menu-item {
     text-align: center;
-    padding: 12px 8px;
-    font-size: 13px;
-  }
-
-  .menu-item span {
-    display: none;
-  }
-
-  .main-content {
-    padding: 20px;
   }
 }
 
 @media (max-width: 600px) {
-  .welcome-card h2 {
-    font-size: 22px;
-  }
-
-  .stat-value {
-    font-size: 28px;
-  }
-
-  .stats-grid,
-  .nutrition-summary,
-  .goals-grid,
-  .charts-grid {
-    gap: 16px;
+  .goal-form,
+  .exercise-form,
+  .nutrition-form {
+    grid-template-columns: 1fr;
   }
 }
