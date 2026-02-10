@@ -1,67 +1,76 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const API = import.meta.env.VITE_BACKEND_URL;
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
 
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        }
-      );
-
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.message || "Login failed");
-      }
+      const res = await fetch(`${API}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      });
 
       const data = await res.json();
-
+      console.log("LOGIN RESPONSE:", data);
+console.log("API URL:", API);
+      if (!res.ok) {
+        setError(data.message || "Login failed");
+        return;
+      }
+    
       localStorage.setItem("token", data.token);
+
       navigate("/dashboard");
     } catch (err) {
-      setError(err.message);
+      setError("Server error. Please try again.");
     }
   };
 
   return (
     <div className="auth-page">
       <form className="auth-card" onSubmit={handleLogin}>
-        <h2>Login</h2>
+        <h1 className="brand">FitLife</h1>
+        <p className="subtitle">Welcome back</p>
 
-        {error && <p className="error-text">{error}</p>}
+        {error && <div className="error-box">{error}</div>}
 
+        <label>Email</label>
         <input
           type="email"
-          placeholder="Email"
+          placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
 
+        <label>Password</label>
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Enter your password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
 
-        <button className="primary-btn" type="submit">
+        <button type="submit" className="primary-btn">
           Login
         </button>
+
+        <p className="switch-text">
+          Don’t have an account? <Link to="/register">Register</Link>
+        </p>
       </form>
     </div>
   );
