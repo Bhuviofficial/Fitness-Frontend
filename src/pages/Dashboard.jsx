@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Layout from "../components/Layout";
-
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -23,8 +20,6 @@ ChartJS.register(
 );
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-
   const [stats, setStats] = useState({
     stepsToday: 0,
     caloriesToday: 0,
@@ -37,68 +32,51 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const API = import.meta.env.VITE_BACKEND_URL;
+
   useEffect(() => {
     const fetchDashboard = async () => {
       const token = localStorage.getItem("token");
 
-      if (!token) {
-        navigate("/login");
-        return;
-      }
-
       try {
-        const res = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/dashboard`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const res = await fetch(`${API}/api/dashboard`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-        if (res.status === 401) {
-          throw new Error("Session expired");
+        if (!res.ok) {
+          throw new Error("Failed to fetch dashboard");
         }
 
         const data = await res.json();
 
-        setStats(data.stats || stats);
-        setWeeklySteps(data.weeklySteps || []);
-        setWeeklyCalories(data.weeklyCalories || []);
+        setStats(data.stats);
+        setWeeklySteps(data.weeklySteps);
+        setWeeklyCalories(data.weeklyCalories);
       } catch (err) {
-        setError("Session expired. Please login again.");
+        setError("Unable to load dashboard data");
       } finally {
         setLoading(false);
       }
     };
 
     fetchDashboard();
-  }, [navigate]);
+  }, [API]);
 
   if (loading) {
-    return (
-      <Layout>
-        <p>Loading dashboard...</p>
-      </Layout>
-    );
+    return <p className="page-loading">Loading dashboard...</p>;
   }
 
   if (error) {
-    return (
-      <Layout>
-        <div className="error-box">
-          <p>{error}</p>
-          <button className="primary-btn" onClick={() => navigate("/login")}>
-            Go to Login
-          </button>
-        </div>
-      </Layout>
-    );
+    return <p className="page-error">{error}</p>;
   }
 
   const chartOptions = {
     responsive: true,
-    plugins: { legend: { display: false } },
+    plugins: {
+      legend: { display: false },
+    },
     scales: {
       y: { beginAtZero: true },
       x: { grid: { display: false } },
@@ -111,7 +89,7 @@ const Dashboard = () => {
       {
         data: weeklySteps,
         borderColor: "#00c6a9",
-        backgroundColor: "rgba(0,198,169,0.25)",
+        backgroundColor: "rgba(0,198,169,0.2)",
         tension: 0.4,
         fill: true,
       },
@@ -124,7 +102,7 @@ const Dashboard = () => {
       {
         data: weeklyCalories,
         borderColor: "#f97316",
-        backgroundColor: "rgba(249,115,22,0.25)",
+        backgroundColor: "rgba(249,115,22,0.2)",
         tension: 0.4,
         fill: true,
       },
@@ -132,8 +110,8 @@ const Dashboard = () => {
   };
 
   return (
-    <Layout>
-      {/* HEADER */}
+    <>
+      {/* WELCOME */}
       <section className="welcome-card">
         <h2>Welcome back 👋</h2>
         <p>Your weekly fitness overview</p>
@@ -178,7 +156,7 @@ const Dashboard = () => {
           <Line data={caloriesData} options={chartOptions} />
         </div>
       </section>
-    </Layout>
+    </>
   );
 };
 

@@ -1,71 +1,39 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-// Pages
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import Nutrition from "./pages/Nutrition";
 import Goals from "./pages/Goals";
 import Exercise from "./pages/Exercise";
+import Nutrition from "./pages/Nutrition";
 
-// Protect routes
-const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem("token");
-  return token ? children : <Navigate to="/login" replace />;
-};
+import AppLayout from "./layout/AppLayout";
 
 const App = () => {
+  const isLoggedIn = !!localStorage.getItem("token");
+
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         {/* AUTH ROUTES */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* PROTECTED ROUTES */}
+        {/* PROTECTED ROUTES WITH SIDEBAR */}
+        <Route element={isLoggedIn ? <AppLayout /> : <Navigate to="/login" />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/nutrition" element={<Nutrition />} />
+          <Route path="/goals" element={<Goals />} />
+          <Route path="/exercise" element={<Exercise />} />
+        </Route>
+
+        {/* DEFAULT */}
         <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
+          path="*"
+          element={<Navigate to={isLoggedIn ? "/dashboard" : "/login"} />}
         />
-
-        <Route
-          path="/nutrition"
-          element={
-            <ProtectedRoute>
-              <Nutrition />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/goals"
-          element={
-            <ProtectedRoute>
-              <Goals />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/exercise"
-          element={
-            <ProtectedRoute>
-              <Exercise />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* DEFAULT ROUTE */}
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
-
-        {/* 404 */}
-        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 };
 
