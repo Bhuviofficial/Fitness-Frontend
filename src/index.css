@@ -789,6 +789,149 @@ body {
   margin-top: 20px;
   width: 100%;
 }
+/* ============================= */
+/* SHARED FORM STYLES */
+/* ============================= */
+
+.goal-form,
+.exercise-form,
+.nutrition-form {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+/* INPUTS */
+.goal-form input,
+.exercise-form input,
+.nutrition-form input,
+.goal-form select,
+.exercise-form select {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+  background: #f9fafb;
+  transition: all 0.2s ease;
+}
+
+.goal-form input:focus,
+.exercise-form input:focus,
+.nutrition-form input:focus {
+  outline: none;
+  border-color: #00c6a9;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 198, 169, 0.15);
+}
+
+/* ADD BUTTON */
+.goal-form button,
+.exercise-form button,
+.nutrition-form button {
+  grid-column: span 2;
+  padding: 14px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00c6a9, #00e0c7);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.goal-form button:hover,
+.exercise-form button:hover,
+.nutrition-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(0, 198, 169, 0.35);
+}
+
+/* ============================= */
+/* GOAL & EXERCISE CARDS */
+/* ============================= */
+
+.goal-card {
+  background: #ffffff;
+  padding: 22px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.goal-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(0, 198, 169, 0.12),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.goal-card:hover::after {
+  opacity: 1;
+}
+
+.goal-card:hover {
+  transform: translateY(-6px);
+}
+
+.goal-card h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #0f172a;
+}
+
+.goal-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #00c6a9;
+}
+
+/* ============================= */
+/* NUTRITION MEAL INPUT LOOK */
+/* ============================= */
+
+.meal-card {
+  border-left: 5px solid #00c6a9;
+}
+
+.meal-cal {
+  background: rgba(22, 163, 74, 0.1);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: #16a34a;
+  font-weight: 600;
+}
+
+/* ============================= */
+/* PAGE HEADERS */
+/* ============================= */
+
+.goals-header h2,
+.nutrition-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.goals-header p,
+.nutrition-header p {
+  color: #64748b;
+}
 
 
 /* ---------- MOBILE ---------- */

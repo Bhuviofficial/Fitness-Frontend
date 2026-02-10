@@ -116,6 +116,12 @@ const Nutrition = () => {
           <p className="summary-value">{totals.fats} g</p>
         </div>
       </section>
+      <div className="nutrition-form">
+  <input placeholder="Food name" />
+  <input placeholder="Calories" />
+  <button>Add Meal</button>
+</div>
+
 
       {/* ADD MEAL */}
       <section className="add-meal">

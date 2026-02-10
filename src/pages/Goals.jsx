@@ -43,13 +43,12 @@ const Goals = () => {
         <p>Track and achieve your goals</p>
       </div>
 
-      <div className="goal-form">
-        <input placeholder="Goal name" value={name} onChange={(e) => setName(e.target.value)} />
-        <input type="number" placeholder="Target" value={target} onChange={(e) => setTarget(e.target.value)} />
-        <input placeholder="Unit (steps, kcal)" value={unit} onChange={(e) => setUnit(e.target.value)} />
-        <button className="primary-btn" onClick={addGoal}>Add Goal</button>
-      </div>
-
+     <div className="goal-form">
+  <input placeholder="Goal name" />
+  <input placeholder="Target" />
+  <input placeholder="Unit (steps, kcal)" />
+  <button>Add Goal</button>
+</div>
       <div className="goals-grid">
         {goals.map((goal) => (
           <div className="goal-card" key={goal.id}>
