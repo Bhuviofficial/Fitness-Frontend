@@ -19,7 +19,7 @@ const Exercise = () => {
 
     setExercises([
       ...exercises,
-      { id: Date.now(), name, duration },
+      { id: Date.now(), name, duration }
     ]);
 
     setName("");
@@ -27,26 +27,32 @@ const Exercise = () => {
   };
 
   return (
-    <div className="goals-page">
-      <div className="goals-header">
+    <div className="exercise-page">
+      <div className="page-header">
         <h2>Exercise</h2>
         <p>Log your workouts</p>
       </div>
 
-      <div className="goal-form">
-        <input placeholder="Exercise name" value={name} onChange={(e) => setName(e.target.value)} />
-        <input type="number" placeholder="Minutes" value={duration} onChange={(e) => setDuration(e.target.value)} />
-        <button className="primary-btn" onClick={addExercise}>Add Exercise</button>
+      <div className="exercise-form">
+        <input
+          placeholder="Exercise name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          placeholder="Duration (mins)"
+          value={duration}
+          onChange={(e) => setDuration(e.target.value)}
+        />
+        <button onClick={addExercise}>Add Exercise</button>
       </div>
 
-      <div className="goals-grid">
-        {exercises.map((ex) => (
-          <div className="goal-card" key={ex.id}>
-            <h4>{ex.name}</h4>
-            <div className="goal-value">{ex.duration} minutes</div>
-          </div>
-        ))}
-      </div>
+      {exercises.map((ex) => (
+        <div className="exercise-card" key={ex.id}>
+          <strong>{ex.name}</strong>
+          <span>{ex.duration} mins</span>
+        </div>
+      ))}
     </div>
   );
 };
