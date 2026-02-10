@@ -1,58 +1,45 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Layout from "../components/Layout";
 
 const Exercise = () => {
-  const [exercises, setExercises] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [exercise, setExercise] = useState("");
+  const [duration, setDuration] = useState("");
 
-  useEffect(() => {
-    const fetchExercises = async () => {
-      try {
-        const token = localStorage.getItem("token");
-
-        const res = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/exercise`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (!res.ok) {
-          throw new Error("Failed to fetch exercises");
-        }
-
-        const data = await res.json();
-        setExercises(data);
-      } catch (err) {
-        setError("Unable to load exercises");
-      } finally {
-        setLoading(false); // 🔥 FIX
-      }
-    };
-
-    fetchExercises();
-  }, []);
+  const handleAddExercise = (e) => {
+    e.preventDefault();
+    alert("Exercise Added (connect backend next)");
+    setExercise("");
+    setDuration("");
+  };
 
   return (
     <Layout>
-      <h1 className="page-title">🏋️ Exercise</h1>
+      <section className="page-header">
+        <h2>🏋️ Exercise Tracker</h2>
+        <p>Log your daily workouts</p>
+      </section>
 
-      {loading && <p>Loading exercises...</p>}
-      {error && <p className="error-text">{error}</p>}
+      <form className="card-form" onSubmit={handleAddExercise}>
+        <label>Exercise Name</label>
+        <input
+          type="text"
+          placeholder="e.g. Running"
+          value={exercise}
+          onChange={(e) => setExercise(e.target.value)}
+          required
+        />
 
-      {!loading && exercises.length === 0 && <p>No exercises logged yet</p>}
+        <label>Duration (minutes)</label>
+        <input
+          type="number"
+          placeholder="30"
+          value={duration}
+          onChange={(e) => setDuration(e.target.value)}
+          required
+        />
 
-      <div className="card-grid">
-        {exercises.map((ex) => (
-          <div className="card" key={ex._id}>
-            <h3>{ex.name}</h3>
-            <p>{ex.duration} minutes</p>
-          </div>
-        ))}
-      </div>
+        <button className="primary-btn">Add Exercise</button>
+      </form>
     </Layout>
   );
 };

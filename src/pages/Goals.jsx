@@ -1,60 +1,45 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Layout from "../components/Layout";
 
 const Goals = () => {
-  const [goals, setGoals] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [goal, setGoal] = useState("");
+  const [target, setTarget] = useState("");
 
-  useEffect(() => {
-    const fetchGoals = async () => {
-      try {
-        const token = localStorage.getItem("token");
-
-        const res = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/goals`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (!res.ok) {
-          throw new Error("Failed to fetch goals");
-        }
-
-        const data = await res.json();
-        setGoals(data);
-      } catch (err) {
-        setError("Unable to load goals");
-      } finally {
-        setLoading(false); // 🔥 THIS FIXES WHITE SCREEN
-      }
-    };
-
-    fetchGoals();
-  }, []);
+  const handleAddGoal = (e) => {
+    e.preventDefault();
+    alert("Goal Added (connect backend next)");
+    setGoal("");
+    setTarget("");
+  };
 
   return (
     <Layout>
-      <h1 className="page-title">🎯 Goals</h1>
+      <section className="page-header">
+        <h2>🎯 Fitness Goals</h2>
+        <p>Set and track your personal goals</p>
+      </section>
 
-      {loading && <p>Loading goals...</p>}
-      {error && <p className="error-text">{error}</p>}
+      <form className="card-form" onSubmit={handleAddGoal}>
+        <label>Goal Name</label>
+        <input
+          type="text"
+          placeholder="e.g. Weight Loss"
+          value={goal}
+          onChange={(e) => setGoal(e.target.value)}
+          required
+        />
 
-      {!loading && goals.length === 0 && <p>No goals added yet</p>}
+        <label>Target</label>
+        <input
+          type="text"
+          placeholder="e.g. Lose 5kg in 2 months"
+          value={target}
+          onChange={(e) => setTarget(e.target.value)}
+          required
+        />
 
-      <div className="card-grid">
-        {goals.map((goal) => (
-          <div className="card" key={goal._id}>
-            <h3>{goal.name}</h3>
-            <p>
-              Target: {goal.target} {goal.unit}
-            </p>
-          </div>
-        ))}
-      </div>
+        <button className="primary-btn">Add Goal</button>
+      </form>
     </Layout>
   );
 };

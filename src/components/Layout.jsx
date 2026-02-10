@@ -18,16 +18,23 @@ const Layout = ({ children }) => {
         <h2 className="sidebar-logo">FitLife</h2>
 
         <nav className="sidebar-menu">
-          <button className={`menu-item ${isActive("/dashboard") ? "active" : ""}`} onClick={() => navigate("/dashboard")}>
+          <button className={`menu-item ${isActive("/dashboard") && "active"}`}
+            onClick={() => navigate("/dashboard")}>
             📊 Dashboard
           </button>
-          <button className={`menu-item ${isActive("/nutrition") ? "active" : ""}`} onClick={() => navigate("/nutrition")}>
+
+          <button className={`menu-item ${isActive("/nutrition") && "active"}`}
+            onClick={() => navigate("/nutrition")}>
             🥗 Nutrition
           </button>
-          <button className={`menu-item ${isActive("/goals") ? "active" : ""}`} onClick={() => navigate("/goals")}>
+
+          <button className={`menu-item ${isActive("/goals") && "active"}`}
+            onClick={() => navigate("/goals")}>
             🎯 Goals
           </button>
-          <button className={`menu-item ${isActive("/exercise") ? "active" : ""}`} onClick={() => navigate("/exercise")}>
+
+          <button className={`menu-item ${isActive("/exercise") && "active"}`}
+            onClick={() => navigate("/exercise")}>
             🏋️ Exercise
           </button>
         </nav>
@@ -37,7 +44,7 @@ const Layout = ({ children }) => {
         </button>
       </aside>
 
-      {/* MAIN */}
+      {/* PAGE CONTENT */}
       <main className="main-content">{children}</main>
     </div>
   );

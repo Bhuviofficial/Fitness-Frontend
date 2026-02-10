@@ -755,6 +755,41 @@ body {
   font-weight: 700;
   color: #f97316;
 }
+.page-header {
+  margin-bottom: 20px;
+}
+
+.card-form {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 14px;
+  max-width: 420px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.card-form label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: 500;
+}
+
+.card-form input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+.card-form input:focus {
+  border-color: #00c6a9;
+}
+
+.primary-btn {
+  margin-top: 20px;
+  width: 100%;
+}
+
 
 /* ---------- MOBILE ---------- */
 
