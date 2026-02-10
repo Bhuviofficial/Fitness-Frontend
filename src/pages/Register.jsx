@@ -31,7 +31,6 @@ const Register = () => {
         return;
       }
 
-      // 🔐 IMPORTANT SAFETY CHECK
       if (!data.token) {
         setError("Registration succeeded but no token received");
         setLoading(false);
