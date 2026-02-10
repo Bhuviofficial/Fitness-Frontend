@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Layout from "../components/Layout";
+import Layout from "../layouts/Layout";
 import {
   Chart as ChartJS,
   CategoryScale,
