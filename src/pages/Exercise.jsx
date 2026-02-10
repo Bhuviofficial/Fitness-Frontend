@@ -1,46 +1,66 @@
 import { useState } from "react";
-import Layout from "../components/Layout";
 
 const Exercise = () => {
-  const [exercise, setExercise] = useState("");
+  const [exercises, setExercises] = useState([]);
+
+  const [name, setName] = useState("");
   const [duration, setDuration] = useState("");
 
-  const handleAddExercise = (e) => {
-    e.preventDefault();
-    alert("Exercise Added (connect backend next)");
-    setExercise("");
+  const addExercise = () => {
+    if (!name || !duration) return;
+
+    const newExercise = {
+      id: Date.now(),
+      name,
+      duration
+    };
+
+    setExercises([...exercises, newExercise]);
+
+    setName("");
     setDuration("");
   };
 
   return (
-    <Layout>
-      <section className="page-header">
-        <h2>🏋️ Exercise Tracker</h2>
-        <p>Log your daily workouts</p>
-      </section>
+    <div className="goals-page">
+      <div className="goals-header">
+        <h2>Exercise</h2>
+        <p>Log your workouts</p>
+      </div>
 
-      <form className="card-form" onSubmit={handleAddExercise}>
-        <label>Exercise Name</label>
+      {/* ADD EXERCISE */}
+      <div className="goal-form">
         <input
           type="text"
-          placeholder="e.g. Running"
-          value={exercise}
-          onChange={(e) => setExercise(e.target.value)}
-          required
+          placeholder="Exercise name (Running, Yoga)"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
 
-        <label>Duration (minutes)</label>
         <input
           type="number"
-          placeholder="30"
+          placeholder="Duration (minutes)"
           value={duration}
           onChange={(e) => setDuration(e.target.value)}
-          required
         />
 
-        <button className="primary-btn">Add Exercise</button>
-      </form>
-    </Layout>
+        <button className="primary-btn" onClick={addExercise}>
+          Add Exercise
+        </button>
+      </div>
+
+      {/* EXERCISE LIST */}
+      <div className="goals-grid">
+        {exercises.length === 0 && <p>No exercises logged yet</p>}
+
+        {exercises.map((ex) => (
+          <div className="goal-card" key={ex.id}>
+            <h4>{ex.name}</h4>
+            <div className="goal-value">{ex.duration} minutes</div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 
