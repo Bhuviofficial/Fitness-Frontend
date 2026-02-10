@@ -5,7 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import Nutrition from "./pages/Nutrition";
 import Goals from "./pages/Goals";
 import Exercise from "./pages/Exercise";
-import DashboardLayout from "./layouts/DashboardLayout";
+import DashboardLayout from "./layouts/Layout";
 
 const ProtectedLayout = () => {
   const token = localStorage.getItem("token");
