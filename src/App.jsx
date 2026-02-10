@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
+// Pages
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
@@ -7,7 +8,7 @@ import Nutrition from "./pages/Nutrition";
 import Goals from "./pages/Goals";
 import Exercise from "./pages/Exercise";
 
-/* ---------------- Protected Route ---------------- */
+// Protect routes
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("token");
   return token ? children : <Navigate to="/login" replace />;
@@ -17,11 +18,11 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* ---------- PUBLIC ROUTES ---------- */}
+        {/* AUTH ROUTES */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* ---------- PROTECTED ROUTES ---------- */}
+        {/* PROTECTED ROUTES */}
         <Route
           path="/dashboard"
           element={
@@ -58,20 +59,11 @@ const App = () => {
           }
         />
 
-        {/* ---------- DEFAULT ROUTE ---------- */}
-        <Route
-          path="/"
-          element={
-            localStorage.getItem("token") ? (
-              <Navigate to="/dashboard" replace />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
+        {/* DEFAULT ROUTE */}
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-        {/* ---------- FALLBACK ---------- */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* 404 */}
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </Router>
   );
